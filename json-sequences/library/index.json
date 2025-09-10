@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "sequences": [
+    { "file": "library-load.json", "handlersPath": "@renderx-plugins/library" }
+  ]
+}
+

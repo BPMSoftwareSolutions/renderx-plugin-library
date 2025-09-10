@@ -1,0 +1,53 @@
+{
+  "name": "@renderx-plugins/library",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "RenderX Library UI plugin (temporary in-repo workspace package)",
+  "keywords": ["renderx-plugin", "renderx", "plugin", "library"],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts src/ui/LibraryPanel.tsx src/ui/LibraryPreview.tsx src/symphonies/load.symphony.ts --format esm --sourcemap --injectStyle --external react,react-dom,@renderx-plugins/host-sdk --define.IS_LIB_BUILD_FLAG=true --out-dir dist",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run lint && npm run build && npm test"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": { "import": "./dist/index.js" },
+    "./symphonies/*": { "import": "./dist/symphonies/*.js" }
+  },
+  "files": ["dist", "json-sequences", "README.md", "LICENSE"],
+  "sideEffects": ["./src/**/*.css", "./dist/**/*.css"],
+  "publishConfig": { "access": "public" },
+  "peerDependencies": {
+    "@renderx-plugins/host-sdk": ">=0.1.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "renderx": {
+    "plugins": [
+      {
+        "id": "LibraryPlugin",
+        "ui": { "slot": "library", "module": "@renderx-plugins/library", "export": "LibraryPanel" },
+        "runtime": { "module": "@renderx-plugins/library", "export": "register" }
+      }
+    ],
+    "sequences": [
+      "json-sequences"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^9.33.0",
+    "jsdom": "^26.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
+
