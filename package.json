@@ -1,10 +1,15 @@
 {
   "name": "@renderx-plugins/library",
-  "version": "0.1.0",
+  "version": "0.1.1-rc.0",
   "private": false,
   "type": "module",
   "description": "RenderX Library UI plugin (temporary in-repo workspace package)",
-  "keywords": ["renderx-plugin", "renderx", "plugin", "library"],
+  "keywords": [
+    "renderx-plugin",
+    "renderx",
+    "plugin",
+    "library"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts src/ui/LibraryPanel.tsx src/ui/LibraryPreview.tsx src/symphonies/load.symphony.ts --format esm --sourcemap --injectStyle --external react,react-dom,@renderx-plugins/host-sdk --define.IS_LIB_BUILD_FLAG=true --out-dir dist",
@@ -16,12 +21,26 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "exports": {
-    ".": { "import": "./dist/index.js" },
-    "./symphonies/*": { "import": "./dist/symphonies/*.js" }
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./symphonies/*": {
+      "import": "./dist/symphonies/*.js"
+    }
   },
-  "files": ["dist", "json-sequences", "README.md", "LICENSE"],
-  "sideEffects": ["./src/**/*.css", "./dist/**/*.css"],
-  "publishConfig": { "access": "public" },
+  "files": [
+    "dist",
+    "json-sequences",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./src/**/*.css",
+    "./dist/**/*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@renderx-plugins/host-sdk": ">=0.1.0",
     "react": ">=18",
@@ -31,8 +50,15 @@
     "plugins": [
       {
         "id": "LibraryPlugin",
-        "ui": { "slot": "library", "module": "@renderx-plugins/library", "export": "LibraryPanel" },
-        "runtime": { "module": "@renderx-plugins/library", "export": "register" }
+        "ui": {
+          "slot": "library",
+          "module": "@renderx-plugins/library",
+          "export": "LibraryPanel"
+        },
+        "runtime": {
+          "module": "@renderx-plugins/library",
+          "export": "register"
+        }
       }
     ],
     "sequences": [
@@ -43,6 +69,8 @@
     "@types/node": "^20.0.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "@typescript-eslint/eslint-plugin": "^8.43.0",
+    "@typescript-eslint/parser": "^8.43.0",
     "eslint": "^9.33.0",
     "jsdom": "^26.1.0",
     "tsup": "^8.5.0",
@@ -50,4 +78,3 @@
     "vitest": "^3.2.4"
   }
 }
-
