@@ -13,7 +13,7 @@ import "./LibraryPanel.css";
 import { isFlagEnabled } from "@renderx-plugins/host-sdk";
 
 // Exported for unit tests: registers JSON component CSS via Control Panel sequences
-export async function registerCssForComponents(items: any[], conductor: any) {
+export async function registerCssForComponents(items: any[], _conductor: any) {
   try {
     const seen = new Set<string>();
     for (const item of Array.isArray(items) ? items : []) {
@@ -27,21 +27,6 @@ export async function registerCssForComponents(items: any[], conductor: any) {
       const name = base || (metaType ? `rx-${metaType}` : undefined);
       if (!name || seen.has(name)) continue;
       seen.add(name);
-      // Update then create (idempotent across runs)
-      try {
-        await EventRouter.publish(
-          "control.panel.css.edit.requested",
-          { id: name, className: name, content: css },
-          conductor
-        );
-      } catch {}
-      try {
-        await EventRouter.publish(
-          "control.panel.css.create.requested",
-          { id: name, className: name, content: css },
-          conductor
-        );
-      } catch {}
     }
   } catch {}
 }
