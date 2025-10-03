@@ -2,38 +2,127 @@
   "metadata": {
     "type": "custom-alert",
     "name": "Custom Alert",
+    "version": "1.0.0",
+    "author": "Custom Components",
+    "description": "A custom alert component with icon and dismissible functionality",
     "category": "custom",
-    "description": "A custom alert component with icon and dismissible functionality"
+    "tags": ["alert", "notification", "message", "ui"]
   },
   "ui": {
-    "template": {
-      "tag": "div",
-      "classes": ["rx-custom-alert", "rx-comp"],
-      "attributes": {
-        "data-icon": "⚠️",
-        "data-icon-pos": "start",
-        "data-category": "custom",
-        "data-description": "A custom alert component with icon and dismissible functionality",
-        "data-resize-handles": "e,s,se",
-        "data-resize-min-w": "200",
-        "data-resize-min-h": "60"
-      },
-      "text": "This is a custom alert component",
-      "cssVariables": {
+    "template": "<div class=\"rx-custom-alert rx-custom-alert--{{variant}}\"><span class=\"alert-icon\">{{icon}}</span><span class=\"alert-message\">{{message}}</span>{{#if dismissible}}<button class=\"alert-close\" aria-label=\"Close\">×</button>{{/if}}</div>",
+    "styles": {
+      "css": ".rx-custom-alert { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--alert-bg, #fff3cd); color: var(--alert-color, #856404); border: 1px solid var(--alert-border, #ffc107); padding: var(--alert-padding, 12px 16px); border-radius: var(--alert-border-radius, 8px); font-size: 14px; transition: all 0.2s ease; } .rx-custom-alert .alert-icon { font-size: 18px; line-height: 1; flex-shrink: 0; } .rx-custom-alert .alert-message { flex: 1; line-height: 1.5; } .rx-custom-alert .alert-close { background: none; border: none; color: inherit; font-size: 20px; cursor: pointer; padding: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: opacity 0.2s; flex-shrink: 0; } .rx-custom-alert .alert-close:hover { opacity: 1; } .rx-custom-alert--info { --alert-bg: #d1ecf1; --alert-color: #0c5460; --alert-border: #bee5eb; } .rx-custom-alert--success { --alert-bg: #d4edda; --alert-color: #155724; --alert-border: #c3e6cb; } .rx-custom-alert--warning { --alert-bg: #fff3cd; --alert-color: #856404; --alert-border: #ffc107; } .rx-custom-alert--danger { --alert-bg: #f8d7da; --alert-color: #721c24; --alert-border: #f5c6cb; }",
+      "variables": {
         "alert-bg": "#fff3cd",
-        "alert-border": "#ffc107",
         "alert-color": "#856404",
+        "alert-border": "#ffc107",
         "alert-padding": "12px 16px",
         "alert-border-radius": "8px"
       },
-      "css": ".rx-custom-alert { background: var(--alert-bg, #fff3cd); border: 2px solid var(--alert-border, #ffc107); color: var(--alert-color, #856404); padding: var(--alert-padding, 12px 16px); border-radius: var(--alert-border-radius, 8px); font-size: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); } .rx-custom-alert::before { content: attr(data-icon); font-size: 20px; }",
-      "cssVariablesLibrary": {
-        "alert-bg": "linear-gradient(135deg, #ffeaa7, #fdcb6e)",
-        "alert-border": "#fdcb6e",
-        "rx-icon-size": "24px",
-        "rx-icon-gap": "12px"
+      "library": {
+        "variables": {
+          "alert-bg": "linear-gradient(135deg, #fef3c7, #fde68a)",
+          "alert-color": "#92400e",
+          "alert-border": "#f59e0b",
+          "alert-padding": "14px 18px",
+          "alert-border-radius": "10px",
+          "rx-icon-size": "18px"
+        },
+        "css": ".rx-lib .rx-custom-alert { display: flex; align-items: center; gap: 12px; padding: var(--alert-padding, 14px 18px); border-radius: var(--alert-border-radius, 10px); background: var(--alert-bg); color: var(--alert-color); border: 1px solid var(--alert-border); font-size: 13px; font-weight: 500; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; } .rx-lib .rx-custom-alert .alert-icon { font-size: var(--rx-icon-size, 18px); } .rx-lib .rx-custom-alert:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }"
+      }
+    },
+    "icon": {
+      "mode": "emoji",
+      "value": "⚠️",
+      "position": "start"
+    },
+    "tools": {
+      "drag": { "enabled": true },
+      "resize": {
+        "enabled": true,
+        "handles": ["nw", "n", "ne", "e", "se", "s", "sw", "w"],
+        "constraints": { "min": { "w": 200, "h": 60 } }
+      }
+    }
+  },
+  "integration": {
+    "properties": {
+      "schema": {
+        "message": {
+          "type": "string",
+          "default": "This is an alert message",
+          "description": "Alert message text",
+          "required": true
+        },
+        "variant": {
+          "type": "string",
+          "default": "warning",
+          "description": "Alert style variant",
+          "enum": ["info", "success", "warning", "danger"]
+        },
+        "icon": {
+          "type": "string",
+          "default": "⚠️",
+          "description": "Alert icon (emoji or text)"
+        },
+        "dismissible": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the alert can be dismissed"
+        }
       },
-      "cssLibrary": ".rx-lib .rx-custom-alert { display: inline-flex; align-items: center; gap: var(--rx-icon-gap, 12px); padding: 12px 16px; border-radius: 8px; background: var(--alert-bg); border: 2px solid var(--alert-border); color: var(--alert-color); font-weight: 500; transition: transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.15); cursor: pointer; } .rx-lib .rx-custom-alert[data-icon]::before { content: attr(data-icon); font-size: var(--rx-icon-size, 24px); line-height: 1; } .rx-lib .rx-custom-alert:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }"
+      "defaultValues": {
+        "message": "This is an alert message",
+        "variant": "warning",
+        "icon": "⚠️",
+        "dismissible": true
+      }
+    },
+    "canvasIntegration": {
+      "resizable": true,
+      "draggable": true,
+      "selectable": true,
+      "minWidth": 200,
+      "minHeight": 60,
+      "maxWidth": 800,
+      "maxHeight": 200,
+      "defaultWidth": 400,
+      "defaultHeight": 80,
+      "snapToGrid": true,
+      "allowChildElements": false
+    },
+    "events": {
+      "close": {
+        "description": "Triggered when the alert is dismissed",
+        "parameters": ["event", "elementData"]
+      }
+    }
+  },
+  "interactions": {
+    "canvas.component.create": {
+      "pluginId": "CanvasComponentPlugin",
+      "sequenceId": "canvas-component-create-symphony"
+    },
+    "canvas.component.select": {
+      "pluginId": "CanvasComponentSelectionPlugin",
+      "sequenceId": "canvas-component-select-symphony"
+    },
+    "canvas.component.drag.move": {
+      "pluginId": "CanvasComponentDragPlugin",
+      "sequenceId": "canvas-component-drag-symphony"
+    },
+    "canvas.component.resize.start": {
+      "pluginId": "CanvasComponentResizeStartPlugin",
+      "sequenceId": "canvas-component-resize-start-symphony"
+    },
+    "canvas.component.resize.move": {
+      "pluginId": "CanvasComponentResizeMovePlugin",
+      "sequenceId": "canvas-component-resize-move-symphony"
+    },
+    "canvas.component.resize.end": {
+      "pluginId": "CanvasComponentResizeEndPlugin",
+      "sequenceId": "canvas-component-resize-end-symphony"
     }
   }
 }
+
