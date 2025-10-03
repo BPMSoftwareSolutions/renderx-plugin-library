@@ -130,6 +130,11 @@ export function LibraryPanel() {
 
   const groupedComponents = groupComponentsByCategory(safeItems);
 
+  // Ensure custom category always exists (even if empty) so users can upload
+  if (!groupedComponents.custom) {
+    groupedComponents.custom = [];
+  }
+
   return (
     <div className="library-sidebar">
       <div className="library-sidebar-header">
