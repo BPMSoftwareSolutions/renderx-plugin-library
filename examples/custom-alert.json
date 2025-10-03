@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "type": "custom-alert",
+    "name": "Custom Alert",
+    "category": "custom",
+    "description": "A custom alert component with icon and dismissible functionality"
+  },
+  "ui": {
+    "template": {
+      "tag": "div",
+      "classes": ["rx-custom-alert", "rx-comp"],
+      "attributes": {
+        "data-icon": "⚠️",
+        "data-icon-pos": "start",
+        "data-category": "custom",
+        "data-description": "A custom alert component with icon and dismissible functionality",
+        "data-resize-handles": "e,s,se",
+        "data-resize-min-w": "200",
+        "data-resize-min-h": "60"
+      },
+      "text": "This is a custom alert component",
+      "cssVariables": {
+        "alert-bg": "#fff3cd",
+        "alert-border": "#ffc107",
+        "alert-color": "#856404",
+        "alert-padding": "12px 16px",
+        "alert-border-radius": "8px"
+      },
+      "css": ".rx-custom-alert { background: var(--alert-bg, #fff3cd); border: 2px solid var(--alert-border, #ffc107); color: var(--alert-color, #856404); padding: var(--alert-padding, 12px 16px); border-radius: var(--alert-border-radius, 8px); font-size: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); } .rx-custom-alert::before { content: attr(data-icon); font-size: 20px; }",
+      "cssVariablesLibrary": {
+        "alert-bg": "linear-gradient(135deg, #ffeaa7, #fdcb6e)",
+        "alert-border": "#fdcb6e",
+        "rx-icon-size": "24px",
+        "rx-icon-gap": "12px"
+      },
+      "cssLibrary": ".rx-lib .rx-custom-alert { display: inline-flex; align-items: center; gap: var(--rx-icon-gap, 12px); padding: 12px 16px; border-radius: 8px; background: var(--alert-bg); border: 2px solid var(--alert-border); color: var(--alert-color); font-weight: 500; transition: transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.15); cursor: pointer; } .rx-lib .rx-custom-alert[data-icon]::before { content: attr(data-icon); font-size: var(--rx-icon-size, 24px); line-height: 1; } .rx-lib .rx-custom-alert:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }"
+    }
+  }
+}

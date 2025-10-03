@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "type": "custom-badge",
+    "name": "Badge",
+    "category": "custom",
+    "description": "A badge component for displaying status or counts"
+  },
+  "ui": {
+    "template": {
+      "tag": "span",
+      "classes": ["rx-custom-badge", "rx-comp"],
+      "attributes": {
+        "data-icon": "🏷️",
+        "data-icon-pos": "start",
+        "data-category": "custom",
+        "data-description": "A badge component for displaying status or counts",
+        "data-resize-min-w": "60",
+        "data-resize-min-h": "24"
+      },
+      "text": "New",
+      "cssVariables": {
+        "badge-bg": "#007bff",
+        "badge-color": "#ffffff",
+        "badge-padding": "4px 12px",
+        "badge-border-radius": "12px",
+        "badge-font-size": "12px"
+      },
+      "css": ".rx-custom-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--badge-bg, #007bff); color: var(--badge-color, #ffffff); padding: var(--badge-padding, 4px 12px); border-radius: var(--badge-border-radius, 12px); font-size: var(--badge-font-size, 12px); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }",
+      "cssVariablesLibrary": {
+        "badge-bg": "linear-gradient(135deg, #667eea, #764ba2)",
+        "rx-icon-size": "14px"
+      },
+      "cssLibrary": ".rx-lib .rx-custom-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 14px; background: var(--badge-bg); color: var(--badge-color); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; transition: transform 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.15); cursor: pointer; } .rx-lib .rx-custom-badge[data-icon]::before { content: attr(data-icon); font-size: var(--rx-icon-size, 14px); } .rx-lib .rx-custom-badge:hover { transform: scale(1.05); }"
+    }
+  }
+}
