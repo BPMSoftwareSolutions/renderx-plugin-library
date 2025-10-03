@@ -1,6 +1,6 @@
 {
   "name": "@renderx-plugins/library",
-  "version": "0.1.1-rc.4",
+  "version": "1.0.1",
   "private": false,
   "type": "module",
   "description": "RenderX Library UI plugin (temporary in-repo workspace package)",
