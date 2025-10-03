@@ -2,40 +2,138 @@
   "metadata": {
     "type": "custom-card",
     "name": "Card",
+    "version": "1.0.0",
+    "author": "Custom Components",
+    "description": "A card container component with shadow and hover effects",
     "category": "custom",
-    "description": "A card container component with shadow and hover effects"
+    "tags": ["card", "container", "layout", "ui"]
   },
   "ui": {
-    "template": {
-      "tag": "div",
-      "classes": ["rx-custom-card", "rx-comp"],
-      "attributes": {
-        "data-icon": "🃏",
-        "data-icon-pos": "start",
-        "data-category": "custom",
-        "data-description": "A card container component with shadow and hover effects",
-        "data-role": "container",
-        "data-resize-handles": "nw,n,ne,e,se,s,sw,w",
-        "data-resize-min-w": "200",
-        "data-resize-min-h": "150"
-      },
-      "text": "Card Content",
-      "cssVariables": {
+    "template": "<div class=\"rx-custom-card rx-custom-card--{{variant}}\">{{#if title}}<div class=\"card-header\"><h3 class=\"card-title\">{{title}}</h3></div>{{/if}}<div class=\"card-body\">{{content}}</div>{{#if footer}}<div class=\"card-footer\">{{footer}}</div>{{/if}}</div>",
+    "styles": {
+      "css": ".rx-custom-card { position: relative; background: var(--card-bg, #ffffff); border: var(--card-border, 1px solid #e0e0e0); border-radius: var(--card-border-radius, 12px); padding: 0; box-shadow: var(--card-shadow, 0 2px 8px rgba(0,0,0,0.1)); transition: all 0.3s ease; overflow: hidden; } .rx-custom-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); } .rx-custom-card .card-header { padding: 16px 20px; border-bottom: 1px solid var(--card-border-color, #e0e0e0); background: var(--card-header-bg, #f8f9fa); } .rx-custom-card .card-title { margin: 0; font-size: 18px; font-weight: 600; color: var(--card-title-color, #212529); } .rx-custom-card .card-body { padding: var(--card-padding, 20px); color: var(--card-text-color, #495057); line-height: 1.6; } .rx-custom-card .card-footer { padding: 12px 20px; border-top: 1px solid var(--card-border-color, #e0e0e0); background: var(--card-footer-bg, #f8f9fa); font-size: 14px; color: var(--card-footer-color, #6c757d); } .rx-custom-card--elevated { --card-shadow: 0 4px 16px rgba(0,0,0,0.15); } .rx-custom-card--flat { --card-shadow: none; --card-border: 1px solid #dee2e6; } .rx-custom-card--outlined { --card-bg: transparent; --card-border: 2px solid #007bff; --card-shadow: none; }",
+      "variables": {
         "card-bg": "#ffffff",
         "card-border": "1px solid #e0e0e0",
+        "card-border-color": "#e0e0e0",
         "card-border-radius": "12px",
         "card-padding": "20px",
-        "card-shadow": "0 2px 8px rgba(0,0,0,0.1)"
+        "card-shadow": "0 2px 8px rgba(0,0,0,0.1)",
+        "card-header-bg": "#f8f9fa",
+        "card-footer-bg": "#f8f9fa",
+        "card-title-color": "#212529",
+        "card-text-color": "#495057",
+        "card-footer-color": "#6c757d"
       },
-      "css": ".rx-custom-card { position: relative; background: var(--card-bg, #ffffff); border: var(--card-border, 1px solid #e0e0e0); border-radius: var(--card-border-radius, 12px); padding: var(--card-padding, 20px); box-shadow: var(--card-shadow, 0 2px 8px rgba(0,0,0,0.1)); transition: all 0.3s ease; } .rx-custom-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }",
-      "cssVariablesLibrary": {
-        "card-bg": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        "card-border": "none",
-        "card-padding": "16px",
-        "preview-width": "180px",
-        "preview-height": "120px"
+      "library": {
+        "variables": {
+          "card-bg": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          "card-border": "none",
+          "card-padding": "16px",
+          "card-border-radius": "12px",
+          "card-shadow": "0 4px 12px rgba(0,0,0,0.2)",
+          "preview-width": "180px",
+          "preview-height": "120px"
+        },
+        "css": ".rx-lib .rx-custom-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card-bg); border: var(--card-border); border-radius: var(--card-border-radius, 12px); padding: var(--card-padding, 16px); color: #ffffff; font-weight: 600; box-shadow: var(--card-shadow); width: var(--preview-width, 180px); height: var(--preview-height, 120px); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; overflow: hidden; } .rx-lib .rx-custom-card:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 20px rgba(0,0,0,0.25); } .rx-lib .rx-custom-card .card-body { text-align: center; }"
+      }
+    },
+    "icon": {
+      "mode": "emoji",
+      "value": "🃏",
+      "position": "start"
+    },
+    "tools": {
+      "drag": { "enabled": true },
+      "resize": {
+        "enabled": true,
+        "handles": ["nw", "n", "ne", "e", "se", "s", "sw", "w"],
+        "constraints": { "min": { "w": 200, "h": 150 } }
+      }
+    }
+  },
+  "integration": {
+    "properties": {
+      "schema": {
+        "title": {
+          "type": "string",
+          "default": "",
+          "description": "Card title (optional)"
+        },
+        "content": {
+          "type": "string",
+          "default": "Card content goes here",
+          "description": "Card body content",
+          "required": true
+        },
+        "footer": {
+          "type": "string",
+          "default": "",
+          "description": "Card footer text (optional)"
+        },
+        "variant": {
+          "type": "string",
+          "default": "default",
+          "description": "Card style variant",
+          "enum": ["default", "elevated", "flat", "outlined"]
+        }
       },
-      "cssLibrary": ".rx-lib .rx-custom-card { display: flex; align-items: center; justify-content: center; background: var(--card-bg); border: var(--card-border); border-radius: var(--card-border-radius, 12px); padding: var(--card-padding, 16px); color: #ffffff; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.2); width: var(--preview-width, 180px); height: var(--preview-height, 120px); transition: transform 0.3s ease; cursor: pointer; } .rx-lib .rx-custom-card:hover { transform: translateY(-4px) scale(1.03); }"
+      "defaultValues": {
+        "title": "",
+        "content": "Card content goes here",
+        "footer": "",
+        "variant": "default"
+      }
+    },
+    "canvasIntegration": {
+      "resizable": true,
+      "draggable": true,
+      "selectable": true,
+      "minWidth": 200,
+      "minHeight": 150,
+      "maxWidth": 800,
+      "maxHeight": 600,
+      "defaultWidth": 350,
+      "defaultHeight": 250,
+      "snapToGrid": true,
+      "allowChildElements": true
+    },
+    "events": {
+      "click": {
+        "description": "Triggered when the card is clicked",
+        "parameters": ["event", "elementData"]
+      },
+      "hover": {
+        "description": "Triggered when the card is hovered",
+        "parameters": ["event", "elementData"]
+      }
+    }
+  },
+  "interactions": {
+    "canvas.component.create": {
+      "pluginId": "CanvasComponentPlugin",
+      "sequenceId": "canvas-component-create-symphony"
+    },
+    "canvas.component.select": {
+      "pluginId": "CanvasComponentSelectionPlugin",
+      "sequenceId": "canvas-component-select-symphony"
+    },
+    "canvas.component.drag.move": {
+      "pluginId": "CanvasComponentDragPlugin",
+      "sequenceId": "canvas-component-drag-symphony"
+    },
+    "canvas.component.resize.start": {
+      "pluginId": "CanvasComponentResizeStartPlugin",
+      "sequenceId": "canvas-component-resize-start-symphony"
+    },
+    "canvas.component.resize.move": {
+      "pluginId": "CanvasComponentResizeMovePlugin",
+      "sequenceId": "canvas-component-resize-move-symphony"
+    },
+    "canvas.component.resize.end": {
+      "pluginId": "CanvasComponentResizeEndPlugin",
+      "sequenceId": "canvas-component-resize-end-symphony"
     }
   }
 }
+

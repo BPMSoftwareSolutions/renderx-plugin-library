@@ -1,5 +1,6 @@
 // NOTE: Runtime sequences are mounted from JSON (see json-sequences/*). This file exports handlers for those sequences.
 import { mapJsonComponentToTemplate } from "@renderx-plugins/host-sdk";
+import { loadCustomComponents } from "../utils/storage.utils";
 
 function mapJsonComponentToTemplateCompat(json: any) {
   const tpl = mapJsonComponentToTemplate(json);
@@ -20,12 +21,19 @@ export const handlers = {
   async loadComponents(_data: any, ctx: any) {
     let list: any[] = [];
     try {
+      // Load custom components from storage first
+      const customComponents = loadCustomComponents();
+      const customMapped = customComponents.map(cc =>
+        mapJsonComponentToTemplateCompat(cc.component)
+      );
+
       // Prefer Host SDK inventory bridge if present (browser/dev and tests)
       const g: any = (typeof globalThis !== "undefined" ? globalThis : (window as any));
       const inv = g?.window?.RenderX?.inventory || g?.RenderX?.inventory;
       if (inv && typeof inv.listComponents === "function") {
         const items = await inv.listComponents();
-        list = (items || []).map(mapJsonComponentToTemplateCompat);
+        const inventoryMapped = (items || []).map(mapJsonComponentToTemplateCompat);
+        list = [...customMapped, ...inventoryMapped];
       } else if (typeof fetch === "function") {
         // Browser/dev fallback: serve from public/json-components using JSON index
         const idxRes = await fetch("/json-components/index.json");
@@ -40,10 +48,10 @@ export const handlers = {
             items.push(mapJsonComponentToTemplateCompat(json));
           }
         }
-        list = items;
+        list = [...customMapped, ...items];
       } else {
-        // No inventory available in this runtime
-        list = [];
+        // No inventory available in this runtime, just use custom components
+        list = customMapped;
       }
     } catch {
       // Leave list empty on error

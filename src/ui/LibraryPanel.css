@@ -93,3 +93,325 @@
   line-height: 1.3;
 }
 
+/* Custom Component Upload Styles */
+.custom-component-upload {
+  margin-bottom: 16px;
+}
+
+.upload-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--panel-bg);
+  position: relative;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-zone:hover {
+  border-color: var(--accent-border);
+  background: var(--panel-header-bg);
+}
+
+.upload-zone.drag-over {
+  border-color: var(--accent-border);
+  background: var(--panel-header-bg);
+  transform: scale(1.02);
+}
+
+.upload-zone.loading {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-icon {
+  font-size: 24px;
+  display: block;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.upload-primary {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--panel-header-color);
+}
+
+.upload-secondary {
+  font-size: 10px;
+  color: var(--muted-text);
+}
+
+.upload-message {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.upload-error {
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  color: #ff3b30;
+}
+
+.upload-success {
+  background: rgba(52, 199, 89, 0.1);
+  border: 1px solid rgba(52, 199, 89, 0.3);
+  color: #34c759;
+}
+
+.message-icon {
+  font-size: 12px;
+}
+
+.message-text {
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* Custom Component List Styles */
+.custom-component-list {
+  margin-bottom: 16px;
+}
+
+.custom-component-list.empty {
+  margin-bottom: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 20px;
+  color: var(--muted-text);
+}
+
+.empty-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.empty-text {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.empty-subtext {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.list-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.storage-info {
+  font-size: 10px;
+  color: var(--muted-text);
+  opacity: 0.8;
+}
+
+.component-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.component-item {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.component-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.component-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  gap: 8px;
+}
+
+.component-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--panel-header-color);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.component-type {
+  font-size: 10px;
+  color: var(--muted-text);
+  background: var(--panel-header-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+.component-description {
+  font-size: 10px;
+  color: var(--muted-text);
+  line-height: 1.3;
+  margin-bottom: 8px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.component-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 9px;
+}
+
+.meta-item {
+  display: flex;
+  gap: 4px;
+}
+
+.meta-label {
+  color: var(--muted-text);
+  opacity: 0.8;
+}
+
+.meta-value {
+  color: var(--muted-text);
+  font-weight: 500;
+}
+
+.component-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.remove-button:hover:not(:disabled) {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+.remove-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.storage-warning {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 149, 0, 0.1);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  border-radius: 6px;
+  font-size: 10px;
+  color: #ff9500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.warning-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.warning-text {
+  line-height: 1.3;
+}
+
+/* Error Boundary Styles */
+.custom-component-error {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.error-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.error-text {
+  flex: 1;
+}
+
+.error-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ff3b30;
+  margin-bottom: 4px;
+}
+
+.error-message {
+  font-size: 11px;
+  color: #ff3b30;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+

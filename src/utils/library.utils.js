@@ -30,6 +30,32 @@ export function pickDataAttrs(attrs) {
 }
 
 /**
+ * Sorts categories to ensure custom appears first
+ * @param {Record<string, any[]>} groups - Components grouped by category
+ * @returns {Record<string, any[]>} Sorted groups with custom first
+ */
+function sortCategories(groups) {
+  const order = ['custom', 'basic', 'layout', 'form', 'ui'];
+  const sorted = {};
+
+  // Add categories in preferred order
+  order.forEach(cat => {
+    if (groups[cat]) {
+      sorted[cat] = groups[cat];
+    }
+  });
+
+  // Add remaining categories
+  Object.keys(groups).forEach(cat => {
+    if (!sorted[cat]) {
+      sorted[cat] = groups[cat];
+    }
+  });
+
+  return sorted;
+}
+
+/**
  * Groups components by their category
  * @param {any[]} components - Array of components
  * @returns {Record<string, any[]>} Components grouped by category
@@ -48,7 +74,7 @@ export function groupComponentsByCategory(components) {
     groups[category].push(component);
   });
 
-  return groups;
+  return sortCategories(groups);
 }
 
 /**
@@ -58,6 +84,7 @@ export function groupComponentsByCategory(components) {
  */
 export function getCategoryDisplayName(category) {
   const categoryNames = {
+    custom: "Custom Components",
     basic: "Basic Components",
     layout: "Layout Components",
     form: "Form Components",

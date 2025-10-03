@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "type": "input",
+    "name": "Input",
+    "version": "1.0.0",
+    "author": "RenderX Team",
+    "description": "Text input component with validation and focus handling - JSON replacement for built-in input",
+    "category": "basic",
+    "tags": ["input", "form", "text", "ui"],
+    "replaces": "input"
+  },
+  "ui": {
+    "template": "<input class=\"rx-input rx-input--{{variant}}\" type=\"{{inputType}}\" placeholder=\"{{placeholder}}\" value=\"{{value}}\" {{#if disabled}}disabled{{/if}} {{#if required}}required{{/if}} />",
+    "styles": {
+      "css": ".rx-input { background-color: var(--bg-color); color: var(--text-color); border: var(--border); padding: var(--padding); border-radius: var(--border-radius); font-size: var(--font-size); font-family: inherit; transition: all 0.2s ease; width: 100%; box-sizing: border-box; } .rx-input:focus { outline: none; border-color: var(--focus-border); box-shadow: 0 0 0 2px var(--focus-shadow); } .rx-input:disabled { opacity: 0.6; cursor: not-allowed; background-color: var(--disabled-bg); } .rx-input::placeholder { color: var(--placeholder-color); opacity: 0.7; } .rx-input--default { --bg-color: #ffffff; --text-color: #333333; --border: 1px solid #d1d5db; --focus-border: #007bff; --focus-shadow: rgba(0, 123, 255, 0.25); --disabled-bg: #f9fafb; --placeholder-color: #6b7280; } .rx-input--error { --bg-color: #ffffff; --text-color: #333333; --border: 1px solid #dc3545; --focus-border: #dc3545; --focus-shadow: rgba(220, 53, 69, 0.25); } .rx-input--success { --bg-color: #ffffff; --text-color: #333333; --border: 1px solid #28a745; --focus-border: #28a745; --focus-shadow: rgba(40, 167, 69, 0.25); }",
+      "variables": {
+        "bg-color": "#ffffff",
+        "text-color": "#333333",
+        "border": "1px solid #d1d5db",
+        "focus-border": "#007bff",
+        "focus-shadow": "rgba(0, 123, 255, 0.25)",
+        "padding": "8px 12px",
+        "border-radius": "4px",
+        "font-size": "14px",
+        "placeholder-color": "#6b7280",
+        "disabled-bg": "#f9fafb"
+      },
+      "library": {
+        "variables": {
+          "font-size": "14px",
+          "padding": "10px 12px",
+          "border-radius": "8px",
+          "bg": "#ffffff",
+          "text-color": "#111827",
+          "placeholder-color": "#9ca3af",
+          "border-color": "rgba(17,24,39,0.12)",
+          "hover-border-color": "rgba(17,24,39,0.2)",
+          "focus-border-color": "#6366f1",
+          "focus-ring": "rgba(99,102,241,0.35)",
+          "shadow": "0 1px 2px rgba(0,0,0,0.06)"
+        },
+        "css": ".rx-lib .rx-input { appearance: none; width: 100%; box-sizing: border-box; padding: var(--padding, 10px 12px); font-size: var(--font-size, 14px); border-radius: var(--border-radius, 8px); border: 1px solid var(--border-color, rgba(17,24,39,0.12)); background: var(--bg, #ffffff); color: var(--text-color, #111827); transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,0.06)); outline: none; } .rx-lib .rx-input::placeholder { color: var(--placeholder-color, #9ca3af); opacity: .9; } .rx-lib .rx-input:hover:not(:disabled) { border-color: var(--hover-border-color, rgba(17,24,39,0.2)); } .rx-lib .rx-input:focus { border-color: var(--focus-border-color, #6366f1); box-shadow: 0 0 0 3px var(--focus-ring, rgba(99,102,241,0.35)); } .rx-lib .rx-input:disabled { background: #f9fafb; color: #9ca3af; cursor: not-allowed; opacity: .8; } .rx-lib .rx-input[data-state='error'] { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.15); } .rx-lib .rx-input[data-state='success'] { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); } .rx-lib .rx-preview-host:has(> input)[data-icon] { position: relative; } .rx-lib .rx-preview-host:has(> input)[data-icon]::before { content: attr(data-icon); position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: .6; pointer-events: none; z-index: 1; } .rx-lib .rx-preview-host:has(> input)[data-icon][data-icon-pos='end']::before { left: auto; right: 12px; } .rx-lib .rx-preview-host:has(> input)[data-icon]:not([data-icon-pos='end']) > input { padding-left: 36px; } .rx-lib .rx-preview-host:has(> input)[data-icon][data-icon-pos='end'] > input { padding-right: 36px; }"
+      }
+    },
+    "icon": {
+      "mode": "emoji",
+      "value": "📝",
+      "position": "start"
+    }
+  },
+  "integration": {
+    "properties": {
+      "schema": {
+        "placeholder": {
+          "type": "string",
+          "default": "Enter text...",
+          "description": "Placeholder text shown when input is empty"
+        },
+        "inputType": {
+          "type": "string",
+          "default": "text",
+          "description": "HTML input type",
+          "enum": [
+            "text",
+            "email",
+            "password",
+            "number",
+            "tel",
+            "url",
+            "search"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "default": "default",
+          "description": "Input style variant",
+          "enum": ["default", "error", "success"]
+        },
+        "value": {
+          "type": "string",
+          "default": "",
+          "description": "Current input value"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the input is disabled"
+        },
+        "required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the input is required"
+        }
+      },
+      "defaultValues": {
+        "placeholder": "Enter text...",
+        "inputType": "text",
+        "variant": "default",
+        "value": "",
+        "disabled": false,
+        "required": false
+      }
+    },
+    "canvasIntegration": {
+      "resizable": true,
+      "draggable": true,
+      "selectable": true,
+      "minWidth": 100,
+      "minHeight": 30,
+      "maxWidth": 600,
+      "maxHeight": 60,
+      "defaultWidth": 200,
+      "defaultHeight": 40,
+      "snapToGrid": true,
+      "allowChildElements": false
+    },
+    "events": {
+      "input": {
+        "description": "Triggered when the input value changes",
+        "parameters": ["event", "elementData", "value"]
+      },
+      "focus": {
+        "description": "Triggered when the input receives focus",
+        "parameters": ["event", "elementData"]
+      },
+      "blur": {
+        "description": "Triggered when the input loses focus",
+        "parameters": ["event", "elementData"]
+      },
+      "keydown": {
+        "description": "Triggered when a key is pressed",
+        "parameters": ["event", "elementData", "key"]
+      }
+    }
+  },
+  "interactions": {
+    "canvas.component.create": {
+      "pluginId": "CanvasComponentPlugin",
+      "sequenceId": "canvas-component-create-symphony"
+    },
+    "canvas.component.select": {
+      "pluginId": "CanvasComponentSelectionPlugin",
+      "sequenceId": "canvas-component-select-symphony"
+    },
+    "canvas.component.drag.move": {
+      "pluginId": "CanvasComponentDragPlugin",
+      "sequenceId": "canvas-component-drag-symphony"
+    },
+    "canvas.component.resize.start": {
+      "pluginId": "CanvasComponentResizeStartPlugin",
+      "sequenceId": "canvas-component-resize-start-symphony"
+    },
+    "canvas.component.resize.move": {
+      "pluginId": "CanvasComponentResizeMovePlugin",
+      "sequenceId": "canvas-component-resize-move-symphony"
+    },
+    "canvas.component.resize.end": {
+      "pluginId": "CanvasComponentResizeEndPlugin",
+      "sequenceId": "canvas-component-resize-end-symphony"
+    }
+  }
+}
