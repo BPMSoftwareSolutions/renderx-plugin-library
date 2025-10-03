@@ -15,9 +15,35 @@ describe("library.utils", () => {
     expect(grouped.basic).toHaveLength(1);
   });
 
+  it("sorts categories with custom first", () => {
+    const components = [
+      { metadata: { category: "basic" } },
+      { metadata: { category: "custom" } },
+      { metadata: { category: "layout" } },
+      { metadata: { category: "unknown" } },
+    ];
+    const grouped = groupComponentsByCategory(components as any);
+    const categories = Object.keys(grouped);
+
+    // Custom should be first
+    expect(categories[0]).toBe("custom");
+
+    // Known categories should come before unknown ones
+    const customIndex = categories.indexOf("custom");
+    const basicIndex = categories.indexOf("basic");
+    const layoutIndex = categories.indexOf("layout");
+    const unknownIndex = categories.indexOf("unknown");
+
+    expect(customIndex).toBeLessThan(basicIndex);
+    expect(basicIndex).toBeLessThan(unknownIndex);
+    expect(layoutIndex).toBeLessThan(unknownIndex);
+  });
+
   it("getCategoryDisplayName maps known and formats unknown", () => {
     expect(getCategoryDisplayName("basic")).toBe("Basic Components");
     expect(getCategoryDisplayName("custom")).toBe("Custom Components");
+    expect(getCategoryDisplayName("layout")).toBe("Layout Components");
+    expect(getCategoryDisplayName("unknown")).toBe("Unknown Components");
   });
 
   it("varsToStyle copies entries verbatim for CSS vars", () => {
