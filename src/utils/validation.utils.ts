@@ -84,7 +84,7 @@ function validateMetadata(metadata: any): string[] {
  */
 function validateUI(ui: any): string[] {
   const errors: string[] = [];
-  
+
   if (!ui || typeof ui !== 'object') {
     errors.push('ui is required and must be an object');
     return errors;
@@ -95,10 +95,14 @@ function validateUI(ui: any): string[] {
     errors.push('ui must contain at least one of: template, styles, or html');
   }
 
-  // If template exists, validate it's an object
+  // If template exists, validate it's either a string (Handlebars) or object (JSON structure)
   if (ui.template !== undefined) {
-    const templateError = isValidObject(ui.template, 'ui.template');
-    if (templateError) errors.push(templateError);
+    const isString = typeof ui.template === 'string';
+    const isObject = ui.template && typeof ui.template === 'object' && !Array.isArray(ui.template);
+
+    if (!isString && !isObject) {
+      errors.push('ui.template must be either a string (Handlebars template) or an object (JSON structure)');
+    }
   }
 
   // If styles exists, validate it's an object
@@ -137,7 +141,7 @@ export function validateComponentJson(component: any): ValidationResult {
   errors.push(...uiErrors);
 
   // Check for unknown top-level properties (warnings only)
-  const knownProperties = ['metadata', 'ui'];
+  const knownProperties = ['metadata', 'ui', 'integration', 'interactions', 'events', 'properties'];
   const unknownProps = Object.keys(component).filter(key => !knownProperties.includes(key));
   if (unknownProps.length > 0) {
     warnings.push(`Unknown properties found: ${unknownProps.join(', ')}. These will be preserved but may not be used.`);

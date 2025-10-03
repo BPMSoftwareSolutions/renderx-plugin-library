@@ -127,14 +127,35 @@ describe("validation.utils", () => {
       expect(result.errors).toContain("ui must contain at least one of: template, styles, or html");
     });
 
-    it("should accept ui with template", () => {
+    it("should accept ui with template object", () => {
       const component = {
         metadata: { type: "test", name: "Test" },
         ui: { template: { tag: "div" } }
       };
       const result = validateComponentJson(component);
-      
+
       expect(result.isValid).toBe(true);
+    });
+
+    it("should accept ui with template string (Handlebars)", () => {
+      const component = {
+        metadata: { type: "test", name: "Test" },
+        ui: { template: "<button>{{content}}</button>" }
+      };
+      const result = validateComponentJson(component);
+
+      expect(result.isValid).toBe(true);
+    });
+
+    it("should reject ui with invalid template type", () => {
+      const component = {
+        metadata: { type: "test", name: "Test" },
+        ui: { template: 123 }
+      };
+      const result = validateComponentJson(component);
+
+      expect(result.isValid).toBe(false);
+      expect(result.errors).toContain("ui.template must be either a string (Handlebars template) or an object (JSON structure)");
     });
 
     it("should accept ui with styles", () => {
@@ -143,8 +164,44 @@ describe("validation.utils", () => {
         ui: { styles: { css: ".test { color: red; }" } }
       };
       const result = validateComponentJson(component);
-      
+
       expect(result.isValid).toBe(true);
+    });
+
+    it("should accept real JSON component format with integration and interactions", () => {
+      const component = {
+        metadata: {
+          type: "button",
+          name: "Button",
+          version: "1.0.0",
+          description: "A button component",
+          category: "custom"
+        },
+        ui: {
+          template: "<button>{{content}}</button>",
+          styles: {
+            css: ".button { color: blue; }",
+            variables: { color: "blue" }
+          }
+        },
+        integration: {
+          properties: {
+            schema: {
+              content: { type: "string", default: "Click me" }
+            }
+          }
+        },
+        interactions: {
+          "canvas.component.create": {
+            pluginId: "CanvasPlugin",
+            sequenceId: "create-symphony"
+          }
+        }
+      };
+      const result = validateComponentJson(component);
+
+      expect(result.isValid).toBe(true);
+      expect(result.warnings.length).toBeGreaterThanOrEqual(0); // May have warnings about unknown properties
     });
 
     it("should warn about unknown properties", () => {
