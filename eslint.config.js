@@ -75,5 +75,12 @@ export default [
       "no-restricted-globals": "off",
     },
   },
+  // Relax global restrictions for storage utilities which need localStorage
+  {
+    files: ["src/utils/storage.utils.ts", "src/ui/CustomComponentList.tsx"],
+    rules: {
+      "no-restricted-globals": "off",
+    },
+  },
 ];
 
