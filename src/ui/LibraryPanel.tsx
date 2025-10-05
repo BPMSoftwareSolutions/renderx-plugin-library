@@ -11,7 +11,10 @@ import {
 import { LibraryPreview } from "./LibraryPreview";
 import { CustomComponentUpload } from "./CustomComponentUpload";
 import { CustomComponentList } from "./CustomComponentList";
-import { loadCustomComponents } from "../utils/storage.utils";
+import { ChatWindow } from "./ChatWindow";
+import { loadCustomComponents, saveCustomComponent } from "../utils/storage.utils";
+import { OpenAIService } from "../services/openai.service";
+import { ComponentJSON } from "../services/openai.types";
 import "./LibraryPanel.css";
 import { isFlagEnabled } from "@renderx-plugins/host-sdk";
 
@@ -75,8 +78,12 @@ export function LibraryPanel() {
   const conductor = useConductor();
   const [items, setItems] = React.useState<any[]>([]);
   const [refreshKey, setRefreshKey] = React.useState(0);
+  const [showAIChat, setShowAIChat] = React.useState(false);
   const safeItems = Array.isArray(items) ? items : [];
   const customComponents = loadCustomComponents();
+
+  // Check if AI features are available
+  const aiEnabled = OpenAIService.isConfigured();
 
   const loadComponents = React.useCallback(async () => {
     try {
@@ -128,6 +135,29 @@ export function LibraryPanel() {
     setRefreshKey(prev => prev + 1);
   };
 
+  const handleAIComponentGenerated = async (component: ComponentJSON) => {
+    try {
+      // Save the AI-generated component to custom components
+      const result = await saveCustomComponent(component);
+
+      if (result.success) {
+        // Refresh the component list to include the new AI-generated component
+        setRefreshKey(prev => prev + 1);
+
+        // Close the AI chat window
+        setShowAIChat(false);
+
+        console.log('AI-generated component added to library:', component.metadata.name);
+      } else {
+        console.error('Failed to save AI-generated component:', result.error);
+        // TODO: Show error message to user
+      }
+    } catch (error) {
+      console.error('Failed to save AI-generated component:', error);
+      // TODO: Show error message to user
+    }
+  };
+
   const groupedComponents = groupComponentsByCategory(safeItems);
 
   // Ensure custom category always exists (even if empty) so users can upload
@@ -138,10 +168,36 @@ export function LibraryPanel() {
   return (
     <div className="library-sidebar">
       <div className="library-sidebar-header">
-        <h2 className="library-sidebar-title">🧩 Component Library</h2>
-        <p className="library-sidebar-subtitle">
-          Drag components to the canvas
-        </p>
+        <div className="library-header-content">
+          <h2 className="library-sidebar-title">🧩 Component Library</h2>
+          <p className="library-sidebar-subtitle">
+            Drag components to the canvas
+          </p>
+        </div>
+
+        <div className="library-header-actions">
+          {/* AI Chat Toggle - Only show if configured */}
+          {aiEnabled && (
+            <button
+              className="ai-chat-toggle"
+              onClick={() => setShowAIChat(!showAIChat)}
+              title="AI Component Generator"
+              aria-label="Open AI Component Generator"
+            >
+              🤖 AI
+            </button>
+          )}
+
+          {/* Info notice when AI not available */}
+          {!aiEnabled && (
+            <div
+              className="ai-unavailable-hint"
+              title="AI features require configuration by administrator"
+            >
+              <span className="hint-icon">💡</span>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="library-component-library rx-lib">
@@ -178,6 +234,15 @@ export function LibraryPanel() {
           </div>
         ))}
       </div>
+
+      {/* AI Chat Window */}
+      {showAIChat && aiEnabled && (
+        <ChatWindow
+          isOpen={showAIChat}
+          onClose={() => setShowAIChat(false)}
+          onComponentGenerated={handleAIComponentGenerated}
+        />
+      )}
     </div>
   );
 }

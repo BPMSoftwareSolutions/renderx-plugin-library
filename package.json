@@ -42,7 +42,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@renderx-plugins/host-sdk": "^1.0.4-rc.0",
+    "@renderx-plugins/host-sdk": "^1.0.5",
     "react": ">=18",
     "react-dom": ">=18"
   },

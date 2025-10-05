@@ -1,0 +1,235 @@
+/**
+ * Configuration Status UI Styles
+ */
+
+.config-status-panel {
+  padding: 24px;
+  margin: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.config-status-panel.configured {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.config-status-panel.not-configured {
+  background: #fefce8;
+  border: 1px solid #fde047;
+  color: #854d0e;
+  text-align: left;
+  align-items: stretch;
+}
+
+.status-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.status-content {
+  width: 100%;
+}
+
+.status-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.status-message {
+  margin: 0 0 16px 0;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.status-instructions {
+  margin: 0 0 24px 0;
+  font-style: italic;
+  color: #9ca3af;
+}
+
+.status-model {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Setup Guide Styles */
+.setup-guide {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-top: 16px;
+}
+
+.setup-guide h5 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.setup-steps {
+  margin: 0 0 24px 0;
+  padding-left: 20px;
+}
+
+.setup-steps li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.external-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.external-link:hover {
+  text-decoration: underline;
+}
+
+.env-example,
+.env-file-example {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  margin: 8px 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.dev-setup {
+  margin-bottom: 24px;
+}
+
+.dev-setup p {
+  margin: 0 0 8px 0;
+}
+
+.dev-setup code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+}
+
+/* Info Boxes */
+.security-note,
+.cost-info {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.security-note {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.cost-info {
+  background: #fefce8;
+  border: 1px solid #fde047;
+  color: #854d0e;
+}
+
+.note-icon,
+.info-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.note-content,
+.info-content {
+  flex: 1;
+}
+
+.note-content strong,
+.info-content strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cost-info ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.cost-info li {
+  margin-bottom: 4px;
+}
+
+.cost-info p {
+  margin: 8px 0 0 0;
+}
+
+/* Help Links */
+.help-links {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.help-links h5 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.help-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.help-list li {
+  margin-bottom: 8px;
+}
+
+.help-list a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.help-list a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .config-status-panel {
+    margin: 8px;
+    padding: 16px;
+  }
+  
+  .setup-guide {
+    padding: 16px;
+  }
+  
+  .env-example,
+  .env-file-example {
+    font-size: 12px;
+    padding: 8px;
+  }
+  
+  .security-note,
+  .cost-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
