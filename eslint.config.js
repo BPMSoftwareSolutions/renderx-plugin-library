@@ -82,5 +82,19 @@ export default [
       "no-restricted-globals": "off",
     },
   },
+  // Relax global restrictions for chat utilities which need localStorage
+  {
+    files: ["src/utils/chat.utils.ts"],
+    rules: {
+      "no-restricted-globals": ["error", "document", "window"],
+    },
+  },
+  // Relax global restrictions for UI components that need navigator (clipboard API)
+  {
+    files: ["src/ui/ChatMessage.tsx"],
+    rules: {
+      "no-restricted-globals": ["error", "document", "window", "localStorage"],
+    },
+  },
 ];
 

@@ -48,6 +48,8 @@ vi.mock("@renderx-plugins/host-sdk", () => {
     useConductor: () => ({ play: vi.fn() }),
     resolveInteraction: vi.fn(() => ({ pluginId: "@renderx-plugins/library", sequenceId: "library-load" })),
     isFlagEnabled: () => false,
+    getConfigValue: vi.fn(),
+    hasConfigValue: vi.fn(() => false),
   };
 });
 
