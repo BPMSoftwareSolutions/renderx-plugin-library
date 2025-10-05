@@ -15,7 +15,7 @@ import {
   GenerateComponentResponse,
   ConfigStatus,
   ChatError,
-  GenerationOptions
+  GenerationOptions as _GenerationOptions
 } from './openai.types';
 import { buildSystemPrompt, EXAMPLE_COMPONENTS } from '../utils/prompt.templates';
 import { validateComponentJson } from '../utils/validation.utils';

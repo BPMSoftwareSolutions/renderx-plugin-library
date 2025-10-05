@@ -151,9 +151,9 @@ describe('Chat Utils', () => {
       const longMessage = 'A'.repeat(60);
       const messages = [createMockMessage('user', longMessage)];
       const session = createChatSession(messages);
-      
+
       expect(session.title).toHaveLength(53); // 50 chars + '...'
-      expect(session.title).toEndWith('...');
+      expect(session.title.endsWith('...')).toBe(true);
     });
   });
 

@@ -14,9 +14,12 @@ vi.mock('@renderx-plugins/host-sdk', () => ({
 // Mock fetch
 global.fetch = vi.fn();
 
+// Import mocked modules
+import { getConfigValue, hasConfigValue } from '@renderx-plugins/host-sdk';
+
 describe('OpenAIService', () => {
-  const mockGetConfigValue = vi.mocked(await import('@renderx-plugins/host-sdk')).getConfigValue;
-  const mockHasConfigValue = vi.mocked(await import('@renderx-plugins/host-sdk')).hasConfigValue;
+  const mockGetConfigValue = vi.mocked(getConfigValue);
+  const mockHasConfigValue = vi.mocked(hasConfigValue);
   const mockFetch = vi.mocked(fetch);
 
   beforeEach(() => {
