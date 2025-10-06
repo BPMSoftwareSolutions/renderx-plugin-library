@@ -100,6 +100,23 @@ CRITICAL RULES:
 13. Define properties in integration.properties.schema with type, default, and description
 14. Set appropriate canvas integration settings (resizable, draggable, dimensions)
 
+CRITICAL: UNDERSTAND THE DIFFERENCE BETWEEN CSS VARIABLES AND TEMPLATE VARIABLES!
+
+TEMPLATE VARIABLES (for content):
+- These go in the Handlebars template: {{text}}, {{variant}}, {{disabled}}
+- These are defined in integration.properties.schema
+- They represent CONTENT and CONFIGURATION values
+- Example: "text": "Click me" is the button's text content
+
+CSS VARIABLES (for styling):
+- These go in styles.variables: {"bg-color": "#007bff", "text-color": "#ffffff"}
+- These are referenced in CSS: var(--bg-color), var(--text-color)
+- They represent VISUAL STYLING properties (colors, sizes, spacing)
+- Example: "bg-color": "#007bff" is the background color
+
+NEVER put content values (like "text", "variant", "disabled") in styles.variables!
+ONLY put CSS custom properties (like "bg-color", "text-color", "padding") in styles.variables!
+
 TEMPLATE PATTERNS:
 - Buttons: <button class="{{classes}}" {{#if disabled}}disabled{{/if}}>{{text}}</button>
 - Cards: <div class="card {{variant}}"><h3>{{title}}</h3><p>{{content}}</p></div>
@@ -107,12 +124,14 @@ TEMPLATE PATTERNS:
 - Lists: <ul class="{{listClass}}">{{#each items}}<li>{{this}}</li>{{/each}}</ul>
 
 CSS BEST PRACTICES:
-- Use CSS custom properties for theming: --primary-color, --text-color, etc.
+- Define CSS custom properties in styles.variables: {"bg-color": "#007bff", "text-color": "#ffffff"}
+- Reference them in CSS: background-color: var(--bg-color); color: var(--text-color);
 - Include responsive breakpoints: @media (max-width: 768px)
 - Add smooth transitions: transition: all 0.2s ease
-- Use semantic color names: --success-color, --warning-color
+- Use semantic color names: --success-color, --warning-color, --hover-bg
 - Include focus states for accessibility: :focus-visible
 - Add hover effects: :hover { transform: translateY(-2px); }
+- LIBRARY CSS: Use .rx-lib prefix for library panel styles: .rx-lib .custom-btn { ... }
 
 EXAMPLE COMPONENT TYPES:
 - Buttons (primary, secondary, outline, icon)
@@ -171,45 +190,49 @@ export const EXAMPLE_COMPONENTS = [
         css: `.custom-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: var(--btn-gap, 8px);
+  padding: var(--btn-padding, 12px 24px);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--btn-radius, 8px);
+  font-size: var(--btn-font-size, 14px);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
+  background-color: var(--btn-bg, #3b82f6);
+  color: var(--btn-color, #ffffff);
 }
 
 .custom-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: var(--btn-hover-bg, #2563eb);
 }
 
 .custom-btn.primary {
-  background: var(--primary-color, #3b82f6);
-  color: white;
+  --btn-bg: #3b82f6;
+  --btn-hover-bg: #2563eb;
 }
 
 .custom-btn.secondary {
-  background: var(--secondary-color, #6b7280);
-  color: white;
+  --btn-bg: #6b7280;
+  --btn-hover-bg: #4b5563;
 }
 
 .custom-btn.outline {
   background: transparent;
-  border: 2px solid var(--primary-color, #3b82f6);
-  color: var(--primary-color, #3b82f6);
+  border: 2px solid var(--btn-bg, #3b82f6);
+  color: var(--btn-bg, #3b82f6);
 }
 
 .custom-btn.small {
-  padding: 8px 16px;
-  font-size: 14px;
+  --btn-padding: 8px 16px;
+  --btn-font-size: 12px;
 }
 
 .custom-btn.large {
-  padding: 16px 32px;
-  font-size: 18px;
+  --btn-padding: 16px 32px;
+  --btn-font-size: 18px;
 }
 
 .custom-btn:disabled {
@@ -218,18 +241,42 @@ export const EXAMPLE_COMPONENTS = [
   transform: none;
 }`,
         variables: {
-          text: "Click me",
-          variant: "primary",
-          size: "medium",
-          disabled: false,
-          icon: ""
+          "btn-bg": "#3b82f6",
+          "btn-color": "#ffffff",
+          "btn-hover-bg": "#2563eb",
+          "btn-padding": "12px 24px",
+          "btn-radius": "8px",
+          "btn-gap": "8px",
+          "btn-font-size": "14px"
         },
         library: {
-          css: `.custom-btn { padding: 8px 16px; font-size: 12px; }`,
+          css: `.rx-lib .custom-btn { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: var(--btn-gap, 8px); 
+  padding: var(--btn-padding, 8px 16px); 
+  font-size: var(--btn-font-size, 12px); 
+  border-radius: var(--btn-radius, 8px);
+  background: var(--btn-bg, linear-gradient(135deg, #4f46e5, #3b82f6));
+  color: var(--btn-color, #ffffff);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.rx-lib .custom-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}`,
           variables: {
-            text: "Button",
-            variant: "primary",
-            size: "small"
+            "btn-bg": "linear-gradient(135deg, #4f46e5, #3b82f6)",
+            "btn-color": "#ffffff",
+            "btn-padding": "8px 16px",
+            "btn-font-size": "12px",
+            "btn-radius": "8px",
+            "btn-gap": "8px"
           }
         }
       },

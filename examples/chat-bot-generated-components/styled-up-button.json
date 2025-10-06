@@ -1,0 +1,152 @@
+{
+  "metadata": {
+    "type": "styled-button",
+    "name": "Styled Button",
+    "category": "custom",
+    "description": "A stylish button with customizable styles",
+    "version": "1.0.0",
+    "author": "AI Generated",
+    "tags": [
+      "button",
+      "interactive",
+      "form"
+    ]
+  },
+  "ui": {
+    "template": "<button class=\"styled-btn {{variant}} {{size}}\" {{#if disabled}}disabled{{/if}}>{{text}}</button>",
+    "styles": {
+      "css": ".styled-btn {\n  padding: 10px 20px;\n  border: none;\n  border-radius: 5px;\n  font-size: 16px;\n  font-weight: bold;\n  cursor: pointer;\n  background-color: var(--primary-color, #3498db);\n  color: white;\n  transition: all 0.3s ease;\n}\n\n.styled-btn:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);\n}\n\n.styled-btn.primary {\n  background-color: var(--primary-color, #3498db);\n}\n\n.styled-btn.secondary {\n  background-color: var(--secondary-color, #f39c12);\n}\n\n.styled-btn.large {\n  padding: 12px 24px;\n  font-size: 18px;\n}\n\n.styled-btn.small {\n  padding: 8px 16px;\n  font-size: 14px;\n}",
+      "variables": {
+        "text": "Click Me",
+        "variant": "primary",
+        "size": "medium",
+        "disabled": false
+      },
+      "library": {
+        "css": ".styled-btn { padding: 8px 16px; font-size: 14px; }",
+        "variables": {
+          "text": "Button",
+          "variant": "primary",
+          "size": "medium"
+        }
+      }
+    },
+    "icon": {
+      "mode": "emoji",
+      "value": "⚡",
+      "position": "start"
+    },
+    "tools": {
+      "drag": {
+        "enabled": true
+      },
+      "resize": {
+        "enabled": true,
+        "handles": [
+          "nw",
+          "n",
+          "ne",
+          "e",
+          "se",
+          "s",
+          "sw",
+          "w"
+        ],
+        "constraints": {
+          "min": {
+            "w": 80,
+            "h": 40
+          }
+        }
+      }
+    }
+  },
+  "integration": {
+    "properties": {
+      "schema": {
+        "text": {
+          "type": "string",
+          "default": "Click Me",
+          "description": "Button text content",
+          "required": true
+        },
+        "variant": {
+          "type": "string",
+          "default": "primary",
+          "description": "Button style variant",
+          "enum": [
+            "primary",
+            "secondary"
+          ]
+        },
+        "size": {
+          "type": "string",
+          "default": "medium",
+          "description": "Button size",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the button is disabled"
+        }
+      },
+      "defaultValues": {
+        "text": "Click Me",
+        "variant": "primary",
+        "size": "medium",
+        "disabled": false
+      }
+    },
+    "canvasIntegration": {
+      "resizable": true,
+      "draggable": true,
+      "selectable": true,
+      "minWidth": 100,
+      "minHeight": 50,
+      "defaultWidth": 160,
+      "defaultHeight": 60,
+      "snapToGrid": true,
+      "allowChildElements": false
+    },
+    "events": {
+      "click": {
+        "description": "Triggered when the button is clicked",
+        "parameters": [
+          "event",
+          "elementData"
+        ]
+      }
+    }
+  },
+  "interactions": {
+    "canvas.component.create": {
+      "pluginId": "CanvasComponentPlugin",
+      "sequenceId": "canvas-component-create-styled-button"
+    },
+    "canvas.component.select": {
+      "pluginId": "CanvasComponentSelectionPlugin",
+      "sequenceId": "canvas-component-select-styled-button"
+    },
+    "canvas.component.drag.move": {
+      "pluginId": "CanvasComponentDragPlugin",
+      "sequenceId": "canvas-component-drag-styled-button"
+    },
+    "canvas.component.resize.start": {
+      "pluginId": "CanvasComponentResizeStartPlugin",
+      "sequenceId": "canvas-component-resize-start-styled-button"
+    },
+    "canvas.component.resize.move": {
+      "pluginId": "CanvasComponentResizeMovePlugin",
+      "sequenceId": "canvas-component-resize-move-styled-button"
+    },
+    "canvas.component.resize.end": {
+      "pluginId": "CanvasComponentResizeEndPlugin",
+      "sequenceId": "canvas-component-resize-end-styled-button"
+    }
+  }
+}
