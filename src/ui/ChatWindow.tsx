@@ -17,6 +17,12 @@ import {
 } from '../utils/chat.utils';
 import './ChatWindow.css';
 
+// Generate unique message ID
+let messageIdCounter = 0;
+function generateMessageId(prefix: string): string {
+  return `${prefix}-${Date.now()}-${++messageIdCounter}`;
+}
+
 export function ChatWindow({ isOpen, onClose, onComponentGenerated }: ChatWindowProps) {
   const [openaiService] = useState(() => new OpenAIService());
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -85,7 +91,7 @@ export function ChatWindow({ isOpen, onClose, onComponentGenerated }: ChatWindow
 
     // Add user message
     const userMessage: ChatMessage = {
-      id: `user-${Date.now()}`,
+      id: generateMessageId('user'),
       role: 'user',
       content: prompt,
       timestamp: Date.now()
@@ -103,7 +109,7 @@ export function ChatWindow({ isOpen, onClose, onComponentGenerated }: ChatWindow
 
       // Add AI response
       const aiMessage: ChatMessage = {
-        id: `ai-${Date.now()}`,
+        id: generateMessageId('ai'),
         role: 'assistant',
         content: result.explanation,
         timestamp: Date.now(),
@@ -113,10 +119,10 @@ export function ChatWindow({ isOpen, onClose, onComponentGenerated }: ChatWindow
       setMessages(prev => [...prev, aiMessage]);
     } catch (error: any) {
       console.error('Chat error:', error);
-      
+
       // Add error message
       const errorMessage: ChatMessage = {
-        id: `error-${Date.now()}`,
+        id: generateMessageId('error'),
         role: 'assistant',
         content: error.message || 'Sorry, I encountered an error while generating the component. Please try again.',
         timestamp: Date.now(),
@@ -153,7 +159,7 @@ export function ChatWindow({ isOpen, onClose, onComponentGenerated }: ChatWindow
       });
 
       const aiMessage: ChatMessage = {
-        id: `ai-regen-${Date.now()}`,
+        id: generateMessageId('ai-regen'),
         role: 'assistant',
         content: `Here's an improved version: ${result.explanation}`,
         timestamp: Date.now(),

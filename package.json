@@ -1,6 +1,6 @@
 {
   "name": "@renderx-plugins/library",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "type": "module",
   "description": "RenderX Library UI plugin (temporary in-repo workspace package)",
@@ -42,7 +42,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@renderx-plugins/host-sdk": "^1.0.5",
+    "@renderx-plugins/host-sdk": "^1.0.6",
     "react": ">=18",
     "react-dom": ">=18"
   },
